@@ -25,10 +25,33 @@ public class Room {
     private boolean isBooked = false;
     @Lob
     private Blob photo;
-    @OneToMany(fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "room", fetch = FetchType.LAZY , cascade = CascadeType.ALL)
     private List<BookedRoom> bookings;
 
+    public Long getId() {
+        return id;
+    }
 
+    public String getRoomType() {
+        return roomType;
+    }
+
+    public BigDecimal getRoomPrice() {
+        return roomPrice;
+    }
+
+
+    public void setRoomType(String roomType) {
+        this.roomType = roomType;
+    }
+
+    public void setRoomPrice(BigDecimal roomPrice) {
+        this.roomPrice = roomPrice;
+    }
+
+    public void setPhoto(Blob photo) {
+        this.photo = photo;
+    }
 
     public  Room(){
         this.bookings = new ArrayList<>();

@@ -35,7 +35,6 @@ public class BookedRoom {
     private String bookingConfirmationCode;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id")
-
     private Room room;
 
     public void setRoom(Room room) {
