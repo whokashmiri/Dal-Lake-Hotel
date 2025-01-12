@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react'
 import { addRoom } from '../utils/ApiFunctions'
+import RoomTypeSelector from '../common/RoomTypeSelector'
 
 export const AddRoom = () => {
     const [newRoom , setNewRoom] = useState({
@@ -18,7 +20,7 @@ export const AddRoom = () => {
         if(name === "roomType"){
         if(!isNaN(value)){
 
-            value.parseInt(value)
+            value=parseInt(value)
         }
         else{
             value=""
@@ -63,7 +65,10 @@ export const AddRoom = () => {
                     <div className='mb-3' >
                         <label className='form-label' htmlFor="roomType">Room Type</label>
                         <div>
-
+                            <RoomTypeSelector
+                            handleRoomInputChange={handleRoomInputChange}
+                            newRoom={newRoom}
+                            />
                         </div>
                     </div>
                     <div className='mb-3' >

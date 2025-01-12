@@ -1,9 +1,11 @@
+/* eslint-disable react/prop-types */
+
 import {useEffect, useState} from 'react'
 import { getRoomTypes } from '../utils/ApiFunctions'
 
-const RoomTypeSelector = () =>{
-    const [ roomTypes , setRoomTypes] = useState([])
-    const [ showNewRoomTypeInput , setShowNewRoomTypeInput] = (false)
+const RoomTypeSelector = ({handleRoomInputChange , newRoom}) =>{
+    const [ roomTypes , setRoomTypes] = useState([""])
+    const [ showNewRoomTypeInput , setShowNewRoomTypeInput] = useState(false)
     const [newRoomType , setNewRoomType] = useState("")
 
     useEffect(()=>{
@@ -11,11 +13,59 @@ const RoomTypeSelector = () =>{
             setRoomTypes(data)
         })
     },[])
+    const handleNewRoomTypeInputChange=(e)=>{ 
+      setNewRoomType(e.target.value)
+    }
+    const handleAddNewRoomType=()=>{
+      if(newRoomType !== ""){
+        setRoomTypes([...roomTypes , newRoomType])
+        setNewRoomType("")
+        setShowNewRoomTypeInput(false)
+      }
+    }
 
   return (
-    <div>
+    <>
+    {roomTypes.length > 0 &&(
+      <div>
+        <select id='roomType' name='roomType' value={newRoom.roomTypes}
+        onChange={(e)=>{
+          if(e.target.value == "Add New"){
+            setShowNewRoomTypeInput(true)
+          }else{
+            handleRoomInputChange(e)
+          }
+        }}
+        >
+          <option value={""}>Select Type of Room</option>
+          <option value={"Add New"}>Add New</option>
+          {
+            roomTypes.map((type , index)=>{
+              <option key={index} value={type}>
+                {type}
+              </option>
+            })
+          }
+
+        </select> 
+        {showNewRoomTypeInput && (
+          <div className='mt-2'>
+          <div className='input-group'>
+          <input type="text" 
+          className='form-control'
+          placeholder='Enter new Room type' 
+          value={newRoomType}
+          onChange={handleNewRoomTypeInputChange}
+          />
+          <button className='btn btn-hotel' type='button' onClick={handleAddNewRoomType}
+          >Add</button>
+         </div>
+         </div>
+        )}
+      </div>
+    )}
         
-    </div>
+    </>
   )
 }
 
