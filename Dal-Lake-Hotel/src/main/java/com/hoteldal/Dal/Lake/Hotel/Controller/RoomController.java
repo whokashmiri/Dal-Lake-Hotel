@@ -37,9 +37,14 @@ public class RoomController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("room/types")
+    @GetMapping(value = "room/types")
     public List<String> getRoomTypes(){
         return  roomService.getAllRoomTypes();
         }
+
+
+        public ResponseEntity<List> <RoomResponse>>.getAllRooms(){
+        
+    }
 
 }
