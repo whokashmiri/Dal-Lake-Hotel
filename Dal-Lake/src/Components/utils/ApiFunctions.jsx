@@ -21,19 +21,15 @@ export async function addRoom(photo , roomType , roomPrice) {
 }
 
 //get all room type from database
-//get all room type from database
 export async function getRoomTypes() {
     try {
       const response = await api.get("/rooms/room/types");
       if (!response.ok) {
-         // throw an error when request fails (ex: 404 Not Found, 500 Internal Server Error)
          throw new Error(`Error In Fetching Room Types. Status: ${response.status}`, {cause: new Error(response.statusText)});
       }
       return response.data;
     } catch (error) {
       console.error("Error fetching room types:", error);
-      // Throw the error, so it can be handled outside the function.
-      // you could send a more specific message based on the cause of the error, in the catch
       throw new Error("Error In Fetching Room Types", {cause: error});
     }
   }
